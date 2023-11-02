@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row m-2">
+        <h2 class="text-center text-info col-9">Room Types</h2>
+   
+    <button type="button"  class="btn btn-primary col-3" data-bs-toggle="modal"
+        data-bs-target="#addRoom">
+        Add Room
+    </button>
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="addRoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header  bg-info">
+                    <h2 class="modal-title text-white text-center" id="exampleModalLabel">New Room</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form [formGroup]="roomForm" (ngSubmit)="addRoomType()">
+                    <div class="modal-body">
+
+                        <label for="name" class="form-label">Price</label>
+                        <input id="name" type="text" class="form-control" formControlName="name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-info">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let room of roomTypes">
+                <td>{{room.id}}</td>
+                <td>{{room.name}}</td>
+                <td> <a [routerLink]="['/hoteldetails/']" class="m-1 card-link btn btn-info">Edit</a>
+                    <a (click)="delete(room.id)" class="card-link btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,106 @@
+<div class="container">
+    <h2 class="text-info">Hotel Details</h2>
+    <div class="form row">
+        <div class="col-8">
+            <button class="btn btn-warning m-2" (click)="enableForm()">Edit</button>
+            <form [formGroup]="hotelForm" (ngSubmit)="updateHotel()">
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="name" class="form-label">Hotel Name:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="name" type="text" disableControl formControlName="name" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="description" class="form-label">Hotel Description:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="description" type="text" formControlName="description" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="city" class="form-label">City:</label>
+                    </div>
+                    <div class="col-6">
+                        <select id="city" class=" form-control" formControlName="cityId">
+                            <option [value]="item.id" *ngFor="let item of cities">{{ item.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="address" class="form-label">Address:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="address" type="text" formControlName="address" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="amenities" class="form-label">Amenities:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="amenities" type="text" formControlName="amenities" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="servCh" class="form-label">Service Charge(%):</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="servCh" type="number" formControlName="serviceCharges" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="locLink" class="form-label">Location Link:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="locLink" type="text" formControlName="locationLink" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="images" class="form-label">Add Images</label>
+                    </div>
+
+
+                    <div class="col-6">
+                        <input id="simages" type="file" (change)="onFileChange($event)" multiple class="form-control">
+                    </div>
+                </div>
+                <button *ngIf="isFormEnabled" type="submit" class="btn btn-success offset-3">Update</button>
+                <button *ngIf="isFormEnabled" (click)="cancel()" class="btn btn-danger m-2">Cancel</button>
+                <div *ngIf="isUpdated" class="text-success">Updated Successfully</div>
+
+            </form>
+            <a (click)="roomsDetails()" class="btn btn-info">Add or Edit Rooms</a>
+           
+        </div>
+        <div class="col-4">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col" *ngFor="let slide of images">
+                    <div class="card">
+                        <img [src]="'https://localhost:7051'+slide" class="card-img-top"
+                            style=" object-fit: cover; " alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row m-2">
+        
+                        <div class="col-2">
+                            <label for="state" class="form-label">State:</label>
+                        </div>
+                        <div class="col-6">
+                            <select id="state" class="form-control" (change)="selectOption()">
+                                <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+                            </select>
+                        </div>
+                    </div> -->
+</div>

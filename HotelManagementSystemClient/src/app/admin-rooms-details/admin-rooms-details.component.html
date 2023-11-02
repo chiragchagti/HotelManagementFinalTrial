@@ -1,0 +1,77 @@
+<div class="container m-2">
+    <div class="row m-2">
+        <h2 class="text-info col-10">Rooms in Hotel</h2>
+        <!-- Button trigger modal -->
+<button type="button" (click)="getRoomTypes()" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#addRoom">
+    Add Room
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addRoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header  bg-info">
+          <h2 class="modal-title text-white text-center" id="exampleModalLabel">New Room</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="newRoomForm" (ngSubmit)="addRoom()">
+        <div class="modal-body">
+            <label for="roomType" class="form-label">Room Type</label>
+
+            <select id="roomType" class="form-control"  formControlName="roomTypeId">
+                <option [value]="item.id" *ngFor="let item of roomTypes">{{ item.name }}</option>
+            </select>
+            <label for="price" class="form-label">Price</label>
+            <input id="price" type="number" class="form-control" formControlName="price">
+            <label for="totalRooms" class="form-label">Totar Rooms</label>
+            <input id="totalRooms" type="number" class="form-control" formControlName="totalRooms">
+            <label for="images" class="form-label">Images</label>
+            <input id="simages" type="file" (change)="onFileChange($event)" multiple class="form-control">
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"  [disabled]="newRoomForm.invalid">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    </div>
+    <div class="card mb-3" *ngFor="let room of hotelRooms" style="max-width: 540vw;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="getFirstImage(room.images)" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8"> 
+            <div class="card-body">
+              <h2 class="card-title text-danger">{{room.roomType.name}}</h2>
+              <table class="card-text table table-active table-bordered">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Total Rooms</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{room.price}}</td>
+                        <td>{{room.totalRooms}}</td>
+                        <td><a (click)="fillForm(room)" class="m-1 card-link btn btn-info">Edit</a>
+                            <a (click)="delete(room.id)" class="card-link btn btn-danger">Delete</a></td>
+                    </tr>
+                </tbody>
+              </table>
+              <form *ngIf="isFormEnabled && selectedRoom == room.id" [formGroup]="roomForm" (ngSubmit)="updateRoom()">
+                <label for="price" class="m-2">Price</label>
+                <input id="price" type="number" formControlName="price">
+                <label for="totalRooms" class="m-2">Totar Rooms</label>
+                <input id="totalRooms" type="number" formControlName="totalRooms">
+                <button type="submit" class="btn btn-primary m-2">Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

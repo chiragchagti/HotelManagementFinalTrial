@@ -1,0 +1,43 @@
+<div class="container">
+  <div ><h2 class="text-center text-info">Hotels</h2></div>
+  <div class="row m-2">
+  <div class="form-group col-5 ">
+    <label for="state">Select your State:</label>
+    <select id="state" class="col-5" [(ngModel)]="selected" (change)="selectOption()">
+      <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-5">
+    <label for="city">Select your City</label>
+    <select id="city" class="col-5"  [(ngModel)]="cityId" (change)="navigate()">
+      <option [value]="item.id" *ngFor="let item of foundCities">{{ item.name }}</option>
+    </select>
+  </div>
+  <a routerLink="/addhotel" class="btn btn-info col-2">Add new Hotel</a>
+  </div>
+  <div class="p-2">
+    <table class="table table-info table-bordered table-active" id="hotelsTable" datatable [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Amenities</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hotel of hotels">
+          <td> <img [src]="getFirstImage(hotel.images)" height="100vh"></td>
+          <td>{{hotel.name}}</td>
+          <td>{{hotel.amenities}}</td>
+          <td>
+            <a [routerLink]="['/hoteldetails/',hotel.id]" class="m-1 card-link btn btn-info">View Details</a>
+            <a (click)="delete(hotel.id)" class="card-link btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

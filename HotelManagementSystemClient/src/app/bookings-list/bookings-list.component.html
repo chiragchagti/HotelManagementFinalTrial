@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row m-2">
+    <div class="col-10">
+      <h2 class="text-info text-center ">All Bookings</h2>
+
+    </div>
+    <div class="col-2">
+      <a *ngIf="currentUser.role == 'Super Admin'" (click)="exportExcel()" class="btn btn-success">Export Excel</a>
+
+    </div>
+  </div>
+    <table class="table table-info table-bordered table-active m-2" id="bookings" datatable [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger">
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th>Chech-in Date</th>
+        <th>Check=out Date</th>
+        <th>Status</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+          <td>{{booking.hotelRoom.hotel.name}}</td>
+        <td>{{booking.checkInDate | date}}</td>
+        <td>{{booking.checkOutDate | date}}</td>
+        <td> {{booking.bookingStatus}}</td>
+        <td> {{booking.priceWithGst}}</td>
+        <td><a (click)="reprint(booking)" class="btn btn-info m-2">Reprint</a> 
+           </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>

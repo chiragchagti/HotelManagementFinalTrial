@@ -1,0 +1,182 @@
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-4">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                      <button
+                        *ngFor="let slide of images; let i = index"
+                        type="button"
+                        [attr.data-bs-target]="'#carouselExampleIndicators'"
+                        [attr.data-bs-slide-to]="i"
+                        [class.active]="i === 0"
+                      ></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div
+                        *ngFor="let slide of images; let i = index"
+                        class="carousel-item"
+                        [class.active]="i === 0"
+                      >
+                        <img
+                        [src]="'https://localhost:7051'+slide"
+                          
+                          class="d-block w-100"
+                        />
+                      </div>
+                    </div>
+                    <button
+                      class="carousel-control-prev"
+                      type="button"
+                      [attr.data-bs-target]="'#carouselExampleIndicators'"
+                      data-bs-slide="prev"
+                    >
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                      class="carousel-control-next"
+                      type="button"
+                      [attr.data-bs-target]="'#carouselExampleIndicators'"
+                      data-bs-slide="next"
+                    >
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  
+                <!-- thumbs-wrap.// -->
+                <!-- gallery-wrap .end// -->
+            </aside>
+            <main class="col-lg-8">
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark">
+                        {{hotel.name}}
+                    </h4>
+                    <div class="d-flex flex-row my-3">
+                        <div class="text-warning mb-1 me-2">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="ms-1">
+                                4.5
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="h5">{{hotel.description}}</span>
+                    </div>
+                    <hr />
+                    <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
+
+                        <div class="col" *ngFor="let room of hotel.hotelRooms">
+                            <label for="{{room.id}}">
+                                <input type="radio" id="{{room.id}}" value="{{room.id}}" [(ngModel)]="selectedRoom">
+                                <div class="card h-100" style=" border-radius: 1em;">
+
+                                    <img class="card-img-top"
+                                        style="border-radius: 1em; height: 12vw; object-fit: cover;"
+                                        [src]="getFirstImage(room.images)" alt="Card image cap">
+
+                                    <div class="card-body row text-center">
+                                        <h5 class="card-title text-center col-6"> <b>{{room.roomType.name}}</b> </h5>
+
+                                        <ul class="col-6">
+
+                                            <li class="list-group-item bg-transparent">₹<b style="color: red;">
+                                                    {{room.price}} </b></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group m-3">
+                    <label for="adult" class="col-2"><b>Adults</b> </label>
+
+                    <a class="btn btn-link col-1" (click)="decreaseAdults()" *ngIf="adults >1">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a class="btn btn-link col-1" *ngIf="adults <=1">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input id="adult" min="1" name="quantity" disabled value="{{adults}}" style="width:50px" />
+                    <a class="btn btn-link  col-1" (click)="increaseAdults()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <label for="children" class="col-2"><b>Children</b> </label>
+
+                    <a class="btn btn-link col-1" (click)="decreaseChild()" *ngIf="children>0">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a class="btn btn-link col-1" *ngIf="children <= 0">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input id="children" min="1" name="quantity" disabled value="{{children}}" style="width:50px" />
+                    <a class="btn btn-link  col-1" (click)="increaseChild()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="row">
+
+                    <h4 class="col-6">No. of Rooms: {{rooms}}</h4>
+                    <button class="btn btn-success col-6" (click)="navigate()">Book Now</button>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="container">
+
+        <div class="section-title">
+
+
+        </div>
+    </div>
+
+    <div class="map">
+        <iframe style="border:0; width: 100%; height: 350px;" [src]="safeUrl" frameborder="0"
+            allowfullscreen=""></iframe>
+    </div>
+
+    <div class="container mt-5">
+
+        <div class="text-center">
+            <div class="row">
+                <div class="col-6  info">
+                    <i class="bi bi-geo-alt"></i>
+                    <h4>Address:</h4>
+                    <p>{{hotel.address}}</p>
+                </div>
+
+                <div class="col-6  info ">
+                    <i class="bi bi-clock"></i>
+                    <h4>Hours:</h4>
+                    <p>CheckIn-CheckOut:<br>12:00 PM - 11:00 AM</p>
+                </div>
+
+                <!-- <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+            <i class="bi bi-envelope"></i>
+            <h4>Email:</h4>
+            <p>junctionpind@gmail.com</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+            <i class="bi bi-phone"></i>
+            <h4>Call:</h4>
+            <p><a href="tel:+919785555504" class="docs-creator">+91-9785555504</a> </p>
+          </div> -->
+            </div>
+        </div>
+
+
+
+    </div>
+</section>

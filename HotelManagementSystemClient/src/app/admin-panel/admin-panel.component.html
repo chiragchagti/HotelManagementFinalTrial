@@ -1,0 +1,20 @@
+<div class="container m-0">
+  <div class="row" style="height: 100vh;">
+    <div class="col-2 float-left" style="display: inline-block; background: rgba(58,177,180,1);">
+      <ul>
+        <li class="nav-item">
+          <h2><a routerLink="/admin/hotels" class="nav-link">Hotels</a></h2>
+        </li>
+        <li>
+          <h2><a routerLink="/admin/roomtypes" class="nav-link">Room Types</a></h2>
+        </li>
+        <li>
+          <h2><a routerLink="/admin/bookings" class="nav-link">Bookings</a></h2>
+        </li>
+      </ul>
+    </div>
+    <div class="col-10 m-0 p-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+    <h2 class="text-info text-center">Add Hotel</h2>
+    <form [formGroup]="hotelForm" (ngSubmit)="addHotel()">
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="name" class="form-label">Hotel Name:</label>
+            </div>
+            <div class="col-6">
+                <input id="name" type="text" disableControl formControlName="name" class="form-control">
+                <!-- <span class="text-danger" *ngIf="hotelForm.controls.name.errors?.['minlength']">
+                    Name must be at least 4 characters long.
+                </span> -->
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="description" class="form-label">Hotel Description:</label>
+            </div>
+            <div class="col-6">
+                <input id="description" type="text" formControlName="description" class="form-control">
+                <!-- <span class="text-danger" *ngIf="hotelForm.controls.description.errors?.['minlength']">
+                    Description must be at least 50 characters long.
+                </span> -->
+            </div>
+        </div>
+        <div class="row m-2">
+
+            <div class="col-2">
+                <label for="state" class="form-label">State:</label>
+            </div>
+            <div class="col-6">
+                <select id="state" class="form-control"formControlName="state" (change)="selectOption()">
+                    <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+                </select>
+            </div>
+        </div> 
+
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="city" class="form-label">City:</label>
+            </div>
+            <div class="col-6">
+                <select id="city" class=" form-control" formControlName="cityId">
+                    <option [value]="item.id" *ngFor="let item of foundCities">{{ item.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="address" class="form-label">Address:</label>
+            </div>
+            <div class="col-6">
+                <input id="address" type="text" formControlName="address" class="form-control">
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="amenities" class="form-label">Amenities:</label>
+            </div>
+            <div class="col-6">
+                <input id="amenities" type="text" formControlName="amenities" class="form-control">
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="servCh" class="form-label">Service Charge(%):</label>
+            </div>
+            <div class="col-6">
+                <input id="servCh" type="number" formControlName="serviceCharges" class="form-control">
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="locLink" class="form-label">Location Link:</label>
+            </div>
+            <div class="col-6">
+                <input id="locLink" type="text" formControlName="locationLink" class="form-control">
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-2">
+                <label for="images" class="form-label">Images</label>
+            </div>
+            <div class="col-6">
+                <input id="simages" type="file" (change)="onFileChange($event)" multiple class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success offset-3">Save</button>
+        <a routerLink="/admin/hotels" class="btn btn-danger m-2">Cancel</a>
+
+    </form>
+</div>
