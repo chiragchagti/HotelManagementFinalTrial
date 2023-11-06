@@ -20,7 +20,7 @@ currentUser = {role:""};
     ) { }
 
     CheckUser(login:Login):Observable<any>{
-      return this.httpClient.post<any>(env.apiUrl + "/api/Account/authenticate", login).pipe(map(u=>{
+      return this.httpClient.post<any>("api/Account/authenticate", login).pipe(map(u=>{
         if(u){
           this.currentUserName=u.userName;
          
@@ -30,7 +30,6 @@ currentUser = {role:""};
           if(currentUserSession!= null){
             this.currentUser=JSON.parse(currentUserSession)
             this.role = this.currentUser.role
-            console.log(this.role)
           }
         }
         return null;
@@ -51,7 +50,7 @@ currentUser = {role:""};
         return true;}
     }
     register(formData:FormData){
-      return this.httpClient.post<any>(env.apiUrl + "/api/Account/register", formData).pipe(map(u=>{
+      return this.httpClient.post<any>("api/Account/register", formData).pipe(map(u=>{
         if(u){
           this.currentUserName=u.userName;
          

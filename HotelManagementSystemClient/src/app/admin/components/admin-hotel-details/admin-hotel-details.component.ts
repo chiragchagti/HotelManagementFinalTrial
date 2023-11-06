@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Hotel } from '../classes/hotel';
-import { HotelService } from '../services/hotel.service';
+import { Hotel } from '../../../classes/hotel';
+import { HotelService } from '../../services/hotel.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { State } from '../classes/state';
-import { City } from '../classes/city';
-import { CityService } from '../services/city.service';
+import { State } from '../../../classes/state';
+import { City } from '../../../classes/city';
+import { CityService } from '../../../services/city.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -54,7 +54,8 @@ export class AdminHotelDetailsComponent {
       cityId: [this.hotel.cityId],
       amenities: [this.hotel.amenities],
       state: [0],
-      files: [this.hotel.files || []]
+      files: [this.hotel.files || []],
+      featured:[this.hotel.featured]
 
     })
   }
@@ -92,6 +93,7 @@ export class AdminHotelDetailsComponent {
     formData.append('address', this.hotelForm.get('address')!.value);
     formData.append('cityId', this.hotelForm.get('cityId')!.value.toString());
     formData.append('amenities', this.hotelForm.get('amenities')!.value);
+    formData.append('featured', this.hotelForm.get('featured')!.value);
     const files: File[] = this.hotelForm.get('files')?.value;
 
     if (files && files.length > 0) {

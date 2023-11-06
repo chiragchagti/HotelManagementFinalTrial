@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { HotelRoom } from '../classes/hotel-room';
-import { HotelService } from '../services/hotel.service';
+import { HotelRoom } from '../../../classes/hotel-room';
+import { HotelService } from '../../services/hotel.service';
 import { ActivatedRoute, Route } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RoomType } from '../classes/room-type';
+import { RoomType } from '../../../classes/room-type';
 
 @Component({
   selector: 'app-admin-rooms-details',

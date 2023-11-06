@@ -13,19 +13,19 @@ export class BookingService {
 
   constructor(private httpClient:HttpClient) { }
   getAll(CheckAvailability:CheckAvailability):Observable<any>{
-    return this.httpClient.post<any>(env.apiUrl+"/api/Booking/checkroomavailability", CheckAvailability)
+    return this.httpClient.post<any>("api/Booking/checkroomavailability", CheckAvailability)
   }
   
   getRoomDetails(id:number):Observable<any>{
-    return this.httpClient.get<any>(env.apiUrl+"/api/Booking/gethotelroom/"+ id)
+    return this.httpClient.get<any>("api/Booking/gethotelroom/"+ id)
   }
   createBooking(booking:Booking):Observable<any>{
-    return this.httpClient.post<any>(env.apiUrl+"/api/Booking/createbooking/", booking)
+    return this.httpClient.post<any>("api/Booking/createbooking/", booking)
   }
   getBookings(userId:string):Observable<any>{
-return this.httpClient.get<any>(env.apiUrl +"/api/Booking/getbookings/" + userId)
+return this.httpClient.get<any>("api/Booking/getbookings/" + userId)
   }
   getBookingsAdmin():Observable<any>{
-    return this.httpClient.get<any>(env.apiUrl +"/api/Booking/getbookings/" )
+    return this.httpClient.get<any>("api/Booking/getbookings/" )
       }
 }

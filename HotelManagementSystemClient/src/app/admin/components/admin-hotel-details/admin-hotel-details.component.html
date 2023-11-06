@@ -1,3 +1,5 @@
+<a class="btn btn-lg text-center float-left" [routerLink]="'/admin/hotels'"> <span><i class="fa fa-arrow-left "></i></span></a>
+
 <div class="container">
     <h2 class="text-info">Hotel Details</h2>
     <div class="form row">
@@ -61,6 +63,14 @@
                     </div>
                     <div class="col-6">
                         <input id="locLink" type="text" formControlName="locationLink" class="form-control">
+                    </div>
+                </div>
+                <div class="row m-2">
+                    <div class="col-2">
+                        <label for="featured" class="form-label">Featured:</label>
+                    </div>
+                    <div class="col-6">
+                        <input id="featured" type="checkbox" formControlName="featured" class="" value="true">
                     </div>
                 </div>
                 <div class="row m-2">

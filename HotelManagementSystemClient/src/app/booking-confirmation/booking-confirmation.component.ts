@@ -12,6 +12,5 @@ booking:Booking = new Booking
 constructor(private route:ActivatedRoute){}
 ngOnInit(){
   this.booking = history.state;
-
 }
 }

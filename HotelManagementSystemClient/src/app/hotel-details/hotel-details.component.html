@@ -1,58 +1,40 @@
+<a class="btn btn-lg text-center float-left" [routerLink]="'/home'"> <span><i class="fa fa-arrow-left "></i></span></a>
+
 <section class="py-5">
     <div class="container">
         <div class="row gx-5">
             <aside class="col-lg-4">
                 <div id="carouselExampleIndicators" class="carousel slide">
                     <div class="carousel-indicators">
-                      <button
-                        *ngFor="let slide of images; let i = index"
-                        type="button"
-                        [attr.data-bs-target]="'#carouselExampleIndicators'"
-                        [attr.data-bs-slide-to]="i"
-                        [class.active]="i === 0"
-                      ></button>
+                        <button *ngFor="let slide of images; let i = index" type="button"
+                            [attr.data-bs-target]="'#carouselExampleIndicators'" [attr.data-bs-slide-to]="i"
+                            [class.active]="i === 0"></button>
                     </div>
                     <div class="carousel-inner">
-                      <div
-                        *ngFor="let slide of images; let i = index"
-                        class="carousel-item"
-                        [class.active]="i === 0"
-                      >
-                        <img
-                        [src]="'https://localhost:7051'+slide"
-                          
-                          class="d-block w-100"
-                        />
-                      </div>
+                        <div *ngFor="let slide of images; let i = index" class="carousel-item" [class.active]="i === 0">
+                            <img [src]="'https://localhost:7051'+slide" class="d-block w-100" />
+                        </div>
                     </div>
-                    <button
-                      class="carousel-control-prev"
-                      type="button"
-                      [attr.data-bs-target]="'#carouselExampleIndicators'"
-                      data-bs-slide="prev"
-                    >
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
+                    <button class="carousel-control-prev" type="button"
+                        [attr.data-bs-target]="'#carouselExampleIndicators'" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
                     </button>
-                    <button
-                      class="carousel-control-next"
-                      type="button"
-                      [attr.data-bs-target]="'#carouselExampleIndicators'"
-                      data-bs-slide="next"
-                    >
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
+                    <button class="carousel-control-next" type="button"
+                        [attr.data-bs-target]="'#carouselExampleIndicators'" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
                     </button>
-                  </div>
-                  
+                </div>
+
                 <!-- thumbs-wrap.// -->
                 <!-- gallery-wrap .end// -->
             </aside>
             <main class="col-lg-8">
                 <div class="ps-lg-3">
-                    <h4 class="title text-dark">
-                        {{hotel.name}}
-                    </h4>
+                    <h2 class="title text-success">
+                        <b>{{hotel.name}}</b>
+                    </h2>
                     <div class="d-flex flex-row my-3">
                         <div class="text-warning mb-1 me-2">
                             <i class="fa fa-star"></i>
@@ -73,7 +55,7 @@
                     <hr />
                     <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
 
-                        <div class="col" *ngFor="let room of hotel.hotelRooms">
+                        <div class="col-6" *ngFor="let room of hotel.hotelRooms">
                             <label for="{{room.id}}">
                                 <input type="radio" id="{{room.id}}" value="{{room.id}}" [(ngModel)]="selectedRoom">
                                 <div class="card h-100" style=" border-radius: 1em;">
@@ -83,9 +65,9 @@
                                         [src]="getFirstImage(room.images)" alt="Card image cap">
 
                                     <div class="card-body row text-center">
-                                        <h5 class="card-title text-center col-6"> <b>{{room.roomType.name}}</b> </h5>
+                                        <h5 class="card-title text-center "> <b>{{room.roomType.name}}</b> </h5>
 
-                                        <ul class="col-6">
+                                        <ul class="">
 
                                             <li class="list-group-item bg-transparent">₹<b style="color: red;">
                                                     {{room.price}} </b></li>
@@ -96,37 +78,83 @@
                         </div>
                     </div>
                 </div>
-                <div class="row form-group m-3">
-                    <label for="adult" class="col-2"><b>Adults</b> </label>
+                <div class="row form-group p-4 m-2">
+                    <label for="adult" class="col-2  my-auto"><b>Adults</b> </label>
 
-                    <a class="btn btn-link col-1" (click)="decreaseAdults()" *ngIf="adults >1">
+                    <!-- <a class="btn btn-link col-1" (click)="decreaseAdults()" *ngIf="adults >1">
                         <i class="fa fa-minus"></i>
                     </a>
                     <a class="btn btn-link col-1" *ngIf="adults <=1">
                         <i class="fa fa-minus"></i>
-                    </a>
-                    <input id="adult" min="1" name="quantity" disabled value="{{adults}}" style="width:50px" />
-                    <a class="btn btn-link  col-1" (click)="increaseAdults()">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <label for="children" class="col-2"><b>Children</b> </label>
+                    </a> -->
+                   
+                    <input id="adult" min="1" name="quantity" type="number" style="width:80px" [(ngModel)]="adults"
+                        (change)="guestsChange()" class="m-0" />
 
-                    <a class="btn btn-link col-1" (click)="decreaseChild()" *ngIf="children>0">
+                    <!-- <a class="btn btn-link  col-1" (click)="increaseAdults()">
+                        <i class="fa fa-plus"></i>
+                    </a> -->
+                    
+                    <label for="children" class="col-2 my-auto"><b>Children</b> </label>
+
+                    <!-- <a class="btn btn-link col-1" (click)="decreaseChild()" *ngIf="children>0">
                         <i class="fa fa-minus"></i>
                     </a>
                     <a class="btn btn-link col-1" *ngIf="children <= 0">
                         <i class="fa fa-minus"></i>
-                    </a>
-                    <input id="children" min="1" name="quantity" disabled value="{{children}}" style="width:50px" />
-                    <a class="btn btn-link  col-1" (click)="increaseChild()">
+                    </a> -->
+                    
+                    <input id="children" min="0" type="number" name="quantity" [(ngModel)]="children" style="width:80px"
+                        class="m-0" (change)="guestsChange()" />
+
+                    <!-- <a class="btn btn-link  col-1" (click)="increaseChild()">
                         <i class="fa fa-plus"></i>
-                    </a>
+                    </a> -->
+                    
+                    <h4 class="col-4 my-auto mx-auto"><b>No. of Rooms Required: {{rooms}}</b></h4>
+
                 </div>
                 <div class="row">
+                    <mat-form-field class="mx-auto col-5">
+                        <mat-label>Check-In - Check-Out</mat-label>
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                            <input matStartDate formControlName="start" placeholder="Start date" readonly>
+                            <input matEndDate formControlName="end" placeholder="End date" readonly>
+                        </mat-date-range-input>
+                        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
 
-                    <h4 class="col-6">No. of Rooms: {{rooms}}</h4>
-                    <button class="btn btn-success col-6" (click)="navigate()">Book Now</button>
+                        <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">Start date must be
+                            equal
+                            to or
+                            greater than today</mat-error>
+                        <mat-error *ngIf="range.controls['end'].hasError('matEndDateInvalid')">Invalid end
+                            date</mat-error>
+                    </mat-form-field>
+
+                    <div class="form-group mx-auto  col-5">
+                        <button type="submit" class="btn btn-info" (click)="checkAvailabilityByDate()">Check
+                            Availability</button>
+                    </div>
                 </div>
+
+
+
+                <div *ngIf="availabilityResult.isAvailable" class="row my-2">
+                    <h2 class="text-success col-6 mx-auto">Rooms Available</h2>
+                    <button class="btn btn-success col-6 mx-auto"  (click)="navigate()">Book Now</button>
+                </div>
+
+
+
+
+
+                <div *ngIf="!availabilityResult.isAvailable && checked == 1" class="row text-center my-2">
+
+                    <h2 class="text-danger mx-auto">Rooms not Available for selected dates</h2>
+                </div>
+
             </main>
         </div>
     </div>

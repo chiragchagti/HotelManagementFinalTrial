@@ -11,10 +11,10 @@ export class CityService {
   constructor(private httpClient:HttpClient) { }
 
   getAllCities():Observable<any>{
-    return this.httpClient.get<any>(env.apiUrl+"/api/Home/cities")
+    return this.httpClient.get<any>("api/Home/cities")
   }
   getAllStates():Observable<any>{
-    return this.httpClient.get<any>(env.apiUrl+"/api/Home/states")
+    return this.httpClient.get<any>("api/Home/states")
   }
 
 }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { State } from '../classes/state';
-import { City } from '../classes/city';
-import { CityService } from '../services/city.service';
+import { State } from '../../../classes/state';
+import { City } from '../../../classes/city';
+import { CityService } from '../../../services/city.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HotelService } from '../services/hotel.service';
+import { HotelService } from '../../services/hotel.service';
 import { error } from 'jquery';
-import { Hotel } from '../classes/hotel';
+import { Hotel } from '../../../classes/hotel';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';

@@ -14,13 +14,17 @@ export class LoginComponent {
   user: Login = new Login();
   
   constructor(public loginService: LoginService, private router: Router, private authRedirectService: AuthRedirectService) { }
+  ngOnInit(){
+    if(this.loginService.isAuthenticated()){
+      this.router.navigateByUrl('home');
+    }
+  }
   LoginClick() {
 
     this.loginService.CheckUser(this.user).subscribe(
       (response) => {
-
         if (this.authRedirectService.redirectUrl != "") {
-          this.router.navigate([this.authRedirectService.redirectUrl]);
+          this.router.navigateByUrl(this.authRedirectService.redirectUrl, {state: this.authRedirectService.state});
           this.authRedirectService.clearRedirectUrl(); 
         } else {
           

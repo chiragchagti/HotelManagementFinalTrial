@@ -5,6 +5,7 @@ import { City } from '../classes/city';
 import { State } from '../classes/state';
 import { Hotel } from '../classes/hotel';
 import { Router } from '@angular/router';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -23,12 +24,23 @@ export class HomeComponent {
   }
   ngOnInit() {
     this.getCitiesAndStates();
+    this.getFeaturedHotels()
+  }
+  getFeaturedHotels() {
+    this.hotelService.getFeaturedHotels().subscribe(
+      (response) => {
+        this.hotels = response
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
   }
   getCitiesAndStates() {
     this.cityService.getAllCities().subscribe(
       (response) => {
         this.cities = response;
-        this.foundCities =response;
+        this.foundCities = response;
       },
       (error) => {
         console.log(error);
@@ -61,14 +73,14 @@ export class HomeComponent {
     )
   }
 
-getFirstImage(imageString: string): string {
-  const images = imageString.split(',');  
-  return "https://localhost:7051" + images[0].trim(); // Trim any leading/trailing space
-}
+  getFirstImage(imageString: string): string {
+    const images = imageString.split(',');
+    return "https://localhost:7051" + images[0].trim(); // Trim any leading/trailing space
+  }
 
-hotelDetails(id:number){
-  this.router.navigate(['/details', id]);
-}
+  hotelDetails(id: number) {
+    this.router.navigate(['/details', id]);
+  }
 }
 
 

@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Hotel } from '../classes/hotel';
-import { HotelRoom } from '../classes/hotel-room';
-import { HotelService } from '../services/hotel.service';
-import { CityService } from '../services/city.service';
-import { City } from '../classes/city';
-import { State } from '../classes/state';
+import { Hotel } from '../../../classes/hotel';
+import { HotelRoom } from '../../../classes/hotel-room';
+import { HotelService } from '../../services/hotel.service';
+import { CityService } from '../../../services/city.service';
+import { City } from '../../../classes/city';
+import { State } from '../../../classes/state';
 import { Subject } from 'rxjs';
 import { Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';

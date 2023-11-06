@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RoomType } from '../classes/room-type';
-import { HotelService } from '../services/hotel.service';
+import { RoomType } from '../../../classes/room-type';
+import { HotelService } from '../../services/hotel.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup } from '@angular/forms';
 

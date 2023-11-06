@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { env } from 'src/env'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class JwtInterceptorService implements HttpInterceptor {
         }
       })
     }
+    req=req.clone({ url: env.apiUrl+"/"+req.url} )
     
     return next.handle(req)
   }

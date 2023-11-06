@@ -14,6 +14,7 @@ export class Hotel {
     hotelRooms: HotelRoom[] = []
     city: City
     files: File[]
+    featured:boolean
     constructor() {
         this.id = 0;
         this.name = "";
@@ -25,6 +26,7 @@ export class Hotel {
         this.cityId = 0;
         this.serviceCharges = 0
         this.files = []
+        this.featured = false
     }
 }
 

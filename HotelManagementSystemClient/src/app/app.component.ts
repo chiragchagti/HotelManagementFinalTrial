@@ -10,18 +10,15 @@ export class AppComponent {
   title = 'HotelManagementSystemClient';
  currentUser = {role:''}
   constructor(public loginService:LoginService){
+   
+  }
+  ngOnInit(){
     var currentUserSession = sessionStorage.getItem("currentUser");
     if(currentUserSession!= null){
-      this.currentUser=JSON.parse(currentUserSession)
-      
-
+      this.currentUser=JSON.parse(currentUserSession)      
     }
-  }
-  
-
-  
+  } 
   logOutClick(){
     this.loginService.Logout();
-    
   }
 }
