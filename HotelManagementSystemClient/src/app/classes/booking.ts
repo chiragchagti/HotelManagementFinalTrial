@@ -14,6 +14,7 @@ export class Booking {
     hotelRoomId:number =0
     hotelRoom:HotelRoom = new HotelRoom
     applicationUser:ApplicationUser = new ApplicationUser 
+pageCount:number = 0 
 
 }
 export class ApplicationUser{

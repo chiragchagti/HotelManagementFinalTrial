@@ -9,8 +9,7 @@
 
     </div>
   </div>
-    <table class="table table-info table-bordered table-active m-2" id="bookings" datatable [dtOptions]="dtOptions"
-    [dtTrigger]="dtTrigger">
+    <table class="table table-info table-bordered table-active m-2" id="bookings">
     <thead>
       <tr>
         <th>Hotel</th>
@@ -33,4 +32,8 @@
       </tr>
     </tbody>
   </table>
+<div class="mx-auto m-2 text-center">
+  <span class="p-1"  *ngFor="let n of numSequence(); 
+  let i = index;"><a class="btn btn-dark" (click)="pagination(i+1)"> {{i+1}} </a></span>
+</div>
   </div>

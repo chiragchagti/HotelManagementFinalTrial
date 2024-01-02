@@ -21,17 +21,19 @@ export class BookingsListComponent {
   dtOptions: DataTables.Settings = {};
   bookings: Booking[] = []
   currentUser = { id: '', role: '' }
+page:number =1
   constructor(private bookingService: BookingService, private router: Router) { }
   ngOnInit() {
     this.getBookings()
   }
+
   getBookings() {
     var currentUserSession = sessionStorage.getItem("currentUser");
     if (currentUserSession != null) {
       this.currentUser = JSON.parse(currentUserSession)
     }
     if (this.currentUser.role == 'Super Admin') {
-      this.bookingService.getBookingsAdmin().subscribe(
+      this.bookingService.getBookingsAdmin(this.page).subscribe(
         (response) => {
           this.bookings = response
           if (this.isDtInitialized) {
@@ -52,7 +54,7 @@ export class BookingsListComponent {
     }
     
     else {
-      this.bookingService.getBookings(this.currentUser.id).subscribe(
+      this.bookingService.getBookings(this.currentUser.id, this.page).subscribe(
         (response) => {
           this.bookings = response
           if (this.isDtInitialized) {
@@ -71,6 +73,9 @@ export class BookingsListComponent {
         }
       )
     }
+  }
+numSequence(): Array<number> { 
+    return Array(this.bookings[0].pageCount); 
   }
   // cancel(id:number) {
   //   Swal.fire({
@@ -124,5 +129,9 @@ export class BookingsListComponent {
   reprint(booking: Booking) {
 
     this.router.navigateByUrl('/bookingconfirmation', { state: booking });
+  }
+pagination(i:number){
+    this.page = i
+    this.getBookings()
   }
 }

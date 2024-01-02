@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingService } from '../services/booking.service';
@@ -10,6 +10,16 @@ import Swal from 'sweetalert2';
 import { error } from 'jquery';
 import { Cart } from '../classes/cart';
 import { HotelService } from '../services/hotel.service';
+import { StripeCardNumberComponent, StripeService } from 'ngx-stripe';
+import {
+  PaymentIntent,
+  StripeCardElementOptions,
+  StripeElementsOptions,
+} from '@stripe/stripe-js';
+import { HttpClient } from '@angular/common/http';
+import { switchMap, Observable } from 'rxjs';
+import { env } from 'src/env';
+
 
 @Component({
   selector: 'app-booking',
@@ -21,9 +31,39 @@ export class BookingComponent {
   newBooking: Booking = new Booking
   currentUser = { id: '' }
   cart:Cart = new Cart
+@ViewChild(StripeCardNumberComponent)
+  card!: StripeCardNumberComponent;
+
+  public cardOptions: StripeCardElementOptions = {
+      style: {
+        base: {
+          fontWeight: 400,
+          fontFamily: 'Circular',
+          fontSize: '14px',
+          iconColor: '#666EE8',
+          color: '#002333',
+          '::placeholder': {
+            color: '#919191',
+          },
+        },
+      },
+    };
+  
+  public elementsOptions: StripeElementsOptions = {
+      locale: 'en',
+    };
+
+    paymentForm: FormGroup = this.formBuilder.group({
+      name: ['John', [Validators.required]],
+      email: ['john@gmail.com', [Validators.required]],
+      amount: [100, [Validators.required, Validators.pattern(/\d+/)]],
+  });
 
   constructor(private route: ActivatedRoute,
-    private router: Router, private formBuilder: FormBuilder, private bookingService: BookingService) { }
+    private router: Router, private formBuilder: FormBuilder, private bookingService: BookingService, 
+    private http: HttpClient,
+    private stripeService: StripeService
+    ) { }
 
   ngOnInit() {
     console.log(this.router.getCurrentNavigation()?.extras.state)
@@ -39,6 +79,54 @@ export class BookingComponent {
     )
 
   }
+
+  pay(): void {
+    if (this.paymentForm.valid) {
+      this.createPaymentIntent(this.paymentForm.get('amount')?.value)
+        .pipe(
+          switchMap((pi) =>
+            this.stripeService.confirmCardPayment(pi.client_secret!, {
+              payment_method: {
+                card: this.card.element,
+                billing_details: {
+                  name: this.paymentForm.get('name')?.value,
+                },
+              },
+            })
+          )
+        )
+        .subscribe((result) => {
+          if (result.error) {
+            // Show error to your customer (e.g., insufficient funds)
+            console.log(result.error.message);
+          } else {
+            // The payment has been processed!
+            if (result.paymentIntent.status === 'succeeded') {
+              // Show a success message to your customer
+              console.log("succeded")
+            }
+          }
+        });
+    } else {
+      console.log(this.paymentForm);
+    }
+  }
+
+createPaymentIntent(amount: number): Observable<PaymentIntent> {
+    return this.http.post<PaymentIntent>(
+      `api/Booking/create-payment-intent`,
+      { amount }
+    );
+ }
+
+
+
+
+
+
+
+
+
   getFirstImage(imageString: string): string {
     const images = imageString.split(',');
     return "https://localhost:7051" + images[0].trim(); // Trim any leading/trailing space

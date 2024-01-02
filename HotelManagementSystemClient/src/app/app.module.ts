@@ -29,6 +29,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
 import { BookingsListComponent } from './bookings-list/bookings-list.component';
 import { RegisterComponent } from './register/register.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { env } from '../env';
 
 
 
@@ -63,6 +65,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     DataTablesModule,
     ReactiveFormsModule,
+NgxStripeModule.forRoot(env.stripe.publicKey),
     JwtModule.forRoot({
       config:{
         tokenGetter:()=>{

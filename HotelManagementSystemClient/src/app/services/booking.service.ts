@@ -22,10 +22,10 @@ export class BookingService {
   createBooking(booking:Booking):Observable<any>{
     return this.httpClient.post<any>("api/Booking/createbooking/", booking)
   }
-  getBookings(userId:string):Observable<any>{
-return this.httpClient.get<any>("api/Booking/getbookings/" + userId)
+  getBookings(userId:string, page:number):Observable<any>{
+return this.httpClient.get<any>("api/Booking/getbookings/" + userId + "/" + page)
   }
-  getBookingsAdmin():Observable<any>{
-    return this.httpClient.get<any>("api/Booking/getbookings/" )
+  getBookingsAdmin(page:number):Observable<any>{
+    return this.httpClient.get<any>("api/Booking/getbookingsadmin" + page )
       }
 }
